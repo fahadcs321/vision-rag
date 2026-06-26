@@ -1,0 +1,20 @@
+[project]
+name = "vision-rag"
+version = "0.1.0"
+description = "Visual document retrieval without OCR — ColQwen2.5 + Qdrant MAX-SIM + Qwen2-VL."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".venv", "results", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+# B008: FastAPI uses `= File(...)`/`Depends(...)` in defaults by design.
+ignore = ["E501", "B008"]

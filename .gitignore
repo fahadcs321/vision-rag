@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+data/sample_pdfs/*.pdf
+results/
+*.egg-info/
+.DS_Store
+.pytest_cache/
+.ruff_cache/
+.streamlit/secrets.toml

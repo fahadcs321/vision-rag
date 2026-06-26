@@ -1,0 +1,20 @@
+# Vision RAG — heavy visual-model stack (GPU recommended).
+#
+# Install alongside the base runtime for real indexing + local answering:
+#     pip install -r requirements.txt -r requirements-models.txt
+#
+# Not needed for the Streamlit demo, the API skeleton, or the offline tests.
+
+# ── ColPali family — visual document retrieval ───────────────────────────────
+colpali-engine>=0.3.10           # ColQwen2.5 / ColPali / ColSmol unified API
+transformers>=4.46.0             # Qwen2-VL backbone
+accelerate>=0.30.0
+torch>=2.3.0                     # CUDA 12.x recommended
+torchvision>=0.18.0
+
+# ── Evaluation (RAGAS-style scoring) ─────────────────────────────────────────
+ragas>=0.1.10
+datasets>=2.19.0
+
+# ── Observability (optional) ─────────────────────────────────────────────────
+langfuse>=2.0.0

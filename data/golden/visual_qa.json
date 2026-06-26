@@ -1,0 +1,50 @@
+[
+  {
+    "question": "What is the total revenue shown in the bar chart?",
+    "expected_page": null,
+    "doc_type": "chart",
+    "notes": "Answer exists only as pixels in a bar chart — text-RAG fails"
+  },
+  {
+    "question": "What does the system architecture diagram show?",
+    "expected_page": null,
+    "doc_type": "diagram",
+    "notes": "Architecture diagram — OCR destroys the spatial relationships"
+  },
+  {
+    "question": "What were the Q3 earnings per share?",
+    "expected_page": null,
+    "doc_type": "financial_chart",
+    "notes": "Number exists in a visual chart, not in text"
+  },
+  {
+    "question": "Which product category had the highest growth rate according to the pie chart?",
+    "expected_page": null,
+    "doc_type": "pie_chart",
+    "notes": "Pie chart with percentage labels — invisible to OCR"
+  },
+  {
+    "question": "What are the steps shown in the workflow diagram?",
+    "expected_page": null,
+    "doc_type": "workflow",
+    "notes": "Flow diagram — structure lost in OCR linearization"
+  },
+  {
+    "question": "What is the conclusion stated in the executive summary?",
+    "expected_page": null,
+    "doc_type": "text",
+    "notes": "Text-heavy page — both systems should handle this well"
+  },
+  {
+    "question": "What trend does the line graph show over the past 5 years?",
+    "expected_page": null,
+    "doc_type": "line_chart",
+    "notes": "Time-series chart — trend only visible, not readable as text"
+  },
+  {
+    "question": "What are the key metrics shown in the dashboard screenshot?",
+    "expected_page": null,
+    "doc_type": "dashboard",
+    "notes": "KPI dashboard — numbers in visual widgets, not parseable text"
+  }
+]
