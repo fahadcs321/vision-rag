@@ -1,9 +1,9 @@
 [theme]
 base = "dark"
-primaryColor = "#8B5CF6"
-backgroundColor = "#0D1117"
-secondaryBackgroundColor = "#161B22"
-textColor = "#C9D1D9"
+primaryColor = "#9F8BFF"
+backgroundColor = "#0D0A1C"
+secondaryBackgroundColor = "#171232"
+textColor = "#F4F1E8"
 
 [server]
 # Silence the dev file-watcher (avoids noisy torch/module reload logs).

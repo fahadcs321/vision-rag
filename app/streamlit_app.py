@@ -62,43 +62,86 @@ st.set_page_config(
     layout="wide",
 )
 
-# ── Custom CSS (dark theme matching the portfolio) ─────────────────────────────
+# ── Design system: "Reasoning Instrument" (violet-ink night, vision accent) ────
 st.markdown(
     """
 <style>
-    .stApp { background-color: #0D1117; color: #C9D1D9; }
-    .main-title { color: #A855F7; font-size: 2rem; font-weight: 700; }
-    .sub-title { color: #8B949E; font-size: 0.9rem; }
-    .metric-box {
-        background: #161B22; border: 1px solid #30363D;
-        border-radius: 8px; padding: 12px 16px;
-    }
-    .page-card {
-        background: #161B22; border: 1px solid #8B5CF6;
-        border-radius: 8px; padding: 8px;
-        text-align: center;
-    }
-    .answer-box {
-        background: #161B22; border-left: 3px solid #8B5CF6;
-        padding: 16px 20px; border-radius: 8px;
-        line-height: 1.7;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Albert+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+.stApp {
+  background:
+    radial-gradient(1000px 520px at 14% -12%, rgba(159,139,255,0.15), transparent 60%),
+    radial-gradient(820px 460px at 90% -8%, rgba(125,225,255,0.08), transparent 55%),
+    #0D0A1C;
+  color: #F4F1E8; font-family: 'Albert Sans', system-ui, sans-serif;
+}
+#MainMenu, header[data-testid="stHeader"], footer { display: none; }
+.block-container { padding-top: 2rem; max-width: 1150px; }
+code, .mono { font-family: 'Spline Sans Mono', monospace; }
+
+/* masthead */
+.eyebrow { display:flex; align-items:center; gap:.5rem; font-family:'Spline Sans Mono',monospace;
+  font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:#9F8BFF; margin-bottom:.9rem; }
+.vtitle { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:3rem; line-height:1.02;
+  letter-spacing:-.015em; margin:0 0 .5rem; max-width:760px;
+  background:linear-gradient(180deg,#FFFFFF,#CFC8E8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.vtitle em { font-style:normal; -webkit-text-fill-color:#9F8BFF; }
+.vsub { color:#9A94B8; font-size:1.02rem; line-height:1.6; max-width:680px; margin:0 0 1rem; }
+.maxsim { display:inline-block; font-family:'Spline Sans Mono',monospace; font-size:.82rem; color:#7DE1FF;
+  background:rgba(125,225,255,0.07); border:1px solid rgba(125,225,255,0.25); border-radius:10px;
+  padding:.5rem .85rem; margin-bottom:1rem; }
+.maxsim .mut { color:#9A94B8; }
+.flow { display:flex; flex-wrap:wrap; gap:.35rem; font-family:'Spline Sans Mono',monospace; font-size:.72rem; margin-bottom:.4rem; }
+.flow span { color:#F4F1E8; background:#171232; border:1px solid #2A2450; padding:.24rem .55rem; border-radius:7px; }
+.flow .arrow { color:#9A94B8; border:none; background:none; padding:.24rem .05rem; }
+
+/* answer + cards */
+.answer-box { background:#171232; border:1px solid #2A2450; border-left:3px solid #9F8BFF;
+  padding:16px 20px; border-radius:12px; line-height:1.7; color:#F4F1E8; }
+
+/* streamlit component reskin */
+.stTabs [data-baseweb="tab-list"] { gap:.4rem; border-bottom:1px solid #2A2450; }
+.stTabs [data-baseweb="tab"] { font-family:'Spline Sans Mono',monospace; font-size:.82rem; }
+.stTabs [aria-selected="true"] { color:#9F8BFF !important; }
+div.stButton > button { border-radius:10px; border:1px solid #2A2450; background:#171232; color:#F4F1E8;
+  font-family:'Albert Sans',sans-serif; font-weight:500; }
+div.stButton > button:hover { border-color:#9F8BFF; color:#9F8BFF; }
+div.stButton > button[kind="primary"] { background:#9F8BFF; border:1px solid #9F8BFF; color:#150F2E; font-weight:700; }
+div.stButton > button[kind="primary"]:hover { background:#B4A4FF; border-color:#B4A4FF; }
+.stTextInput input { background:#171232 !important; border:1px solid #2A2450 !important; border-radius:12px !important; color:#F4F1E8 !important; }
+.stTextInput input:focus { border-color:#9F8BFF !important; box-shadow:0 0 0 3px rgba(159,139,255,0.18) !important; }
+div[data-testid="stMetric"] { background:#131028; border:1px solid #2A2450; border-radius:12px; padding:.6rem .9rem; }
+div[data-testid="stMetricValue"] { font-family:'Spline Sans Mono',monospace; color:#7DE1FF; }
+div[data-testid="stImage"] img { border:1px solid #2A2450; border-radius:10px; }
+h3 { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; letter-spacing:-.01em; }
+@media (prefers-reduced-motion: reduce) { * { animation:none!important; transition:none!important; } }
 </style>
 """,
     unsafe_allow_html=True,
 )
 
-# ── Header ─────────────────────────────────────────────────────────────────────
-st.markdown('<div class="main-title">👁️ Vision RAG</div>', unsafe_allow_html=True)
+# ── Masthead ───────────────────────────────────────────────────────────────────
 st.markdown(
-    '<div class="sub-title">Reads charts, scanned PDFs, and figures that text-RAG cannot. '
-    "ColQwen2.5 + Qdrant MAX-SIM + Qwen2-VL. No OCR required.</div>",
+    """
+<div class="eyebrow">👁 Vision RAG · OCR-free visual retrieval</div>
+<div class="vtitle">It reads the <em>pixels</em>.</div>
+<div class="vsub">Charts, scanned reports and figures that text-RAG can't touch — because the
+number lives in a bar, not in extractable text. ColQwen2.5 embeds each page as ~1,000 visual
+patches; late-interaction retrieval matches your query to the exact patch.</div>
+<div class="maxsim">Score(q, page) = <span class="mut">Σ<sub>i</sub></span> max<sub>j</sub>
+cos(q<sub>i</sub>, page<sub>j</sub>) &nbsp;<span class="mut">— every query token finds its best visual patch</span></div>
+<div class="flow">
+  <span>PDF → page images</span><span class="arrow">→</span>
+  <span>ColQwen2.5 patches</span><span class="arrow">→</span>
+  <span>MAX-SIM rerank</span><span class="arrow">→</span>
+  <span>Vision model answers</span>
+</div>
+""",
     unsafe_allow_html=True,
 )
 if DEMO_MODE:
     st.info(
         "🎬 **Demo mode** — this hosted version runs a scripted walkthrough "
-        "(the full pipeline needs ColQwen2.5 + Qwen2-VL + a GPU). "
+        "(the full pipeline needs ColQwen2.5 + a GPU). "
         "Run it locally for live PDF indexing and retrieval.",
         icon="ℹ️",
     )
