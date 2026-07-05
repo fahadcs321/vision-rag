@@ -62,15 +62,15 @@ class ColQwenModel:
             self.processor = ColQwen2_5_Processor.from_pretrained(model_id, use_fast=True)
 
         else:  # colsmol — CPU-friendly default for dev
-            from colpali_engine.models import ColSmolVLM, ColSmolVLMProcessor
+            from colpali_engine.models import ColIdefics3, ColIdefics3Processor
 
             model_id = COLSMOL_MODEL_ID
-            self.model = ColSmolVLM.from_pretrained(
+            self.model = ColIdefics3.from_pretrained(
                 model_id,
                 torch_dtype=torch.bfloat16 if self.device == "cuda" else torch.float32,
                 device_map=self.device,
             ).eval()
-            self.processor = ColSmolVLMProcessor.from_pretrained(model_id, use_fast=True)
+            self.processor = ColIdefics3Processor.from_pretrained(model_id, use_fast=True)
 
         self._loaded = True
         logger.info(f"ColPali model loaded: {model_id} on {self.device}")
