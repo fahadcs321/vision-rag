@@ -40,7 +40,18 @@ class ColQwenModel:
     def __init__(self):
         self.model = None
         self.processor = None
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        # Prefer NVIDIA, then Apple Silicon (MPS), then CPU. On MPS, launch with
+        # PYTORCH_ENABLE_MPS_FALLBACK=1 so ops MPS lacks fall back to CPU.
+        if torch.cuda.is_available():
+            self.device = "cuda"
+        elif torch.backends.mps.is_available():
+            self.device = "mps"
+            # Let ops MPS doesn't implement fall back to CPU instead of crashing.
+            import os
+
+            os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+        else:
+            self.device = "cpu"
         self._loaded = False
 
     def load(self):
