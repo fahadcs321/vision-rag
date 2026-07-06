@@ -52,6 +52,19 @@ async def lifespan(app: FastAPI):
     colqwen_model.load()
     logger.info("ColPali model ready")
 
+    # Warm up both encode paths so the FIRST real request doesn't pay the one-time
+    # kernel-compile cost — on Apple MPS a cold encode can take 30-100s. Do it once
+    # here at startup instead of on the user's first upload/query.
+    try:
+        from PIL import Image as _Image
+
+        logger.info("Warming up the model (compiling kernels)...")
+        colqwen_model.encode_pages([_Image.new("RGB", (448, 448), "white")])
+        colqwen_model.encode_query("warmup")
+        logger.info("Warmup complete — first request will be fast")
+    except Exception as exc:  # noqa: BLE001
+        logger.warning(f"Warmup skipped: {exc}")
+
     # Ensure Qdrant collection exists
     client = get_client()
     create_collection(client, recreate=False)

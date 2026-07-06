@@ -50,7 +50,7 @@ def run_query(question: str, top_k: int = 5) -> dict:
     if DEMO_MODE:
         return demo_result(question)
     resp = requests.post(
-        f"{API_URL}/query/", json={"question": question, "top_k": top_k}, timeout=60
+        f"{API_URL}/query/", json={"question": question, "top_k": top_k}, timeout=180
     )
     resp.raise_for_status()
     return resp.json()
@@ -277,7 +277,7 @@ with tab_upload:
                     resp = requests.post(
                         f"{API_URL}/ingest/",
                         files={"file": (uploaded.name, uploaded.getvalue(), "application/pdf")},
-                        timeout=30,
+                        timeout=180,
                     )
 
                     if resp.ok:
@@ -288,7 +288,7 @@ with tab_upload:
                         status_placeholder = st.empty()
                         for _ in range(120):  # max 2 min polling
                             time.sleep(3)
-                            status_resp = requests.get(f"{API_URL}/ingest/status/{job['job_id']}")
+                            status_resp = requests.get(f"{API_URL}/ingest/status/{job['job_id']}", timeout=10)
                             if status_resp.ok:
                                 s = status_resp.json()
                                 status_placeholder.info(
